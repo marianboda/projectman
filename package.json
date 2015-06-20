@@ -20,11 +20,12 @@
   "homepage": "https://github.com/marianboda/projectman#readme",
   "dependencies": {
     "express": "^4.12.4",
-    "immutable": "^3.7.3",
+    "immutable": "^3.7.4",
     "node-libs-browser": "^0.5.2",
     "pm2": "^0.12.16",
     "react": "^0.13.3",
-    "webpack": "^1.9.10"
+    "superagent": "^1.2.0",
+    "webpack": "^1.9.11"
   },
   "devDependencies": {
     "coffee-loader": "^0.7.2",
