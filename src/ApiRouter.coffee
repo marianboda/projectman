@@ -1,7 +1,16 @@
 apiRouter = require('express').Router()
 
-apiRouter.get '/*', (req, res, next) ->
-  console.log 'calling router'
-  res.send JSON.stringify({a: '22', b: '42'})
+apiRouter.get '/projects', (req, res, next) ->
+  console.log 'calling router > projects'
+  res.send JSON.stringify [
+    {
+      name: 'project 1'
+      type: 'default'
+    }
+    {
+      name: 'Photor'
+      type: 'extra'
+    }
+  ]
 
 module.exports = apiRouter

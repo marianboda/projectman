@@ -1,9 +1,5 @@
 request = require 'superagent'
+React = require 'react'
+ProjectPage = require './pages/project-page'
 
-request.get 'api/all'
-.end (err, res) ->
-  console.log 'I\'m back', res
-  o = JSON.parse res.text
-
-  for k,v of o
-    console.log "#{k} = #{v}"
+React.render React.createElement(ProjectPage), document.body
