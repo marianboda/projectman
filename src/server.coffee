@@ -3,6 +3,7 @@ express = require 'express'
 app = express()
 router = express.Router()
 port = process.env.PORT || 3002
+apiRouter = require './api-router'
 
 router.get '/', (req, res) ->
   # res.send ':)'
@@ -10,10 +11,8 @@ router.get '/', (req, res) ->
 
 app.use '/static', express.static(__dirname + '/../static')
 # app.use '/favicon.ico', express.static(__dirname + '/../static/favicon.ico')
-app.use '/api', require('./ApiRouter')
+app.use '/api', apiRouter
 app.use '/', router
 
-console.log ':)'
 server = app.listen port, ->
-  console.log 'App listening at %s : %s',
-    server.address().address, server.address().port
+  console.log 'App listening at %s : %s', server.address().address, server.address().port
