@@ -3,7 +3,7 @@ express = require 'express'
 app = express()
 router = express.Router()
 port = process.env.PORT || 3002
-apiRouter = require './api-router'
+apiRouter = require './server/api-router'
 
 router.get '/', (req, res) ->
   # res.send ':)'

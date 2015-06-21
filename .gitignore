@@ -1,3 +1,4 @@
 app/
 static/
 node_modules/
+db.sqlite
