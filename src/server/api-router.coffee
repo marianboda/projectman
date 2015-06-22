@@ -5,15 +5,11 @@ apiRouter.get '/projects', (req, res, next) ->
   console.log 'calling router > projects'
   Sqlite.getRecords (recs) ->
     res.send recs
-    # res.send JSON.stringify [
-    #   {
-    #     name: 'project 1'
-    #     type: 'default'
-    #   }
-    #   {
-    #     name: 'Photor'
-    #     type: 'extra'
-    #   }
-    # ]
+
+apiRouter.post '/projects', (req, res, next) ->
+  console.log 'calling router > projects', req.body
+  rec = req.body
+  Sqlite.add 'projects', rec, (result) ->
+    res.send result
 
 module.exports = apiRouter

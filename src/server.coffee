@@ -1,9 +1,12 @@
 express = require 'express'
+bodyParser = require 'body-parser'
 
 app = express()
 router = express.Router()
 port = process.env.PORT || 3002
 apiRouter = require './server/api-router'
+
+app.use bodyParser.json()
 
 router.get '/', (req, res) ->
   # res.send ':)'
