@@ -8,7 +8,7 @@ apiRouter = require './server/api-router'
 
 app.use bodyParser.json()
 
-router.get '/', (req, res) ->
+router.get '/*', (req, res) ->
   # res.send ':)'
   res.sendFile(__dirname + '/client/index.html')
 
