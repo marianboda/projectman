@@ -2,6 +2,7 @@ request = require 'superagent'
 React = require 'react'
 Reflux = require 'reflux'
 ProjectPage = require './pages/project-page'
+TaskPage = require './pages/task-page'
 AppState = require './stores/app-state'
 Actions = require './actions'
 
@@ -13,17 +14,25 @@ App = React.createClass
     Actions.updateLocation e.currentTarget.href
     e.preventDefault()
 
-
   componentDidMount: ->
     @listenTo AppState, => @setState {}
   render: ->
-    console.log AppState.currentUrl + '----'
+    path = AppState.location.pathname
+
+    page = null
+
+    if path.match(/^\/pros/i)?
+      page = ProjectPage
+    if path.match(/^\/tasks/i)?
+      page = TaskPage
+
     React.DOM.div {},
       React.DOM.h1 {}, AppState.currentUrl
-      React.DOM.a {href: 'pros', onClick: @linkClick}, 'PROS'
-      React.DOM.a {href: 'tasks', onClick: @linkClick}, ' TASKS'
+      React.DOM.a {href: '/pros', onClick: @linkClick}, 'PROS'
+      React.DOM.a {href: '/pros/some', onClick: @linkClick}, ' PROS/SOME'
+      React.DOM.a {href: '/tasks', onClick: @linkClick}, ' TASKS'
 
-      React.createElement ProjectPage
+      React.createElement page
 
 
 React.render React.createElement(App), document.body

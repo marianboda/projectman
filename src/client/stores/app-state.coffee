@@ -1,25 +1,19 @@
+Url = require 'url'
 Reflux = require 'reflux'
-LocationBar = require 'location-bar'
-locationBar = new LocationBar()
 Actions = require '../actions'
 
 AppState = Reflux.createStore
-  currentUrl: ''
+  location: null
 
   init: ->
     @listenTo Actions.updateLocation, @updateLocation
     console.log 'init AppState+'
-    @currentUrl = window.location.href
-    locationBar.onChange (path) ->
-      console.log '%cNew Path: '+path, 'color: #bada55'
-
-    locationBar.start {pushState: true}
+    @location = Url.parse(window.location.href, true)
 
   updateLocation: (url) ->
-    console.log('location updating: ', url)
-    locationBar.update url
-    window.history.pushState(null, "", url)
-    @currentUrl = window.location.href
+    @location = Url.parse(url, true)
+    console.log('location updating: ', @location.href)
+    history.pushState(null, "", url)
     @trigger()
 
 module.exports = AppState
