@@ -31,8 +31,9 @@ App = React.createClass
       React.DOM.a {href: '/pros', onClick: @linkClick}, 'PROS'
       React.DOM.a {href: '/pros/some', onClick: @linkClick}, ' PROS/SOME'
       React.DOM.a {href: '/tasks', onClick: @linkClick}, ' TASKS'
+      React.DOM.hr {}
 
-      React.createElement page
+      React.createElement page if page?
 
 
 React.render React.createElement(App), document.body
