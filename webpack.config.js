@@ -7,7 +7,7 @@ module.exports = {
     module: {
         loaders: [
             { test: /\.css$/, loader: "style!css" },
-            { test: /\.(sass)$/, loader: "style!css!sass?indentedSyntax=sass" },
+            { test: /\.sass$/, loader: "style!css!sass?indentedSyntax=sass&sourceMap" },
             { test: /\.coffee$/, loader: "coffee-loader" },
             { test: /\.(coffee\.md|litcoffee)$/, loader: "coffee-loader?literate" }
         ]

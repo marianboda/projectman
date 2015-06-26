@@ -35,6 +35,10 @@
   "devDependencies": {
     "coffee-loader": "^0.7.2",
     "coffee-script": "^1.9.3",
-    "jest-cli": "^0.4.13"
+    "css-loader": "^0.15.1",
+    "jest-cli": "^0.4.13",
+    "node-sass": "^3.2.0",
+    "sass-loader": "^1.0.2",
+    "style-loader": "^0.12.3"
   }
 }

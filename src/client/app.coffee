@@ -6,6 +6,9 @@ TaskPage = require './pages/task-page'
 AppState = require './stores/app-state'
 Actions = require './actions'
 
+require '../styles/app.sass'
+
+
 App = React.createClass
   displayName: 'app'
   mixins: [Reflux.ListenerMixin]
