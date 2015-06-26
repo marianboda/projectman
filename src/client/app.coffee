@@ -8,7 +8,6 @@ Actions = require './actions'
 
 require '../styles/app.sass'
 
-
 App = React.createClass
   displayName: 'app'
   mixins: [Reflux.ListenerMixin]
@@ -29,14 +28,15 @@ App = React.createClass
     if path.match(/^\/tasks/i)?
       page = TaskPage
 
-    React.DOM.div {},
-      React.DOM.h1 {}, AppState.currentUrl
-      React.DOM.a {href: '/pros', onClick: @linkClick}, 'PROS'
-      React.DOM.a {href: '/pros/some', onClick: @linkClick}, ' PROS/SOME'
-      React.DOM.a {href: '/tasks', onClick: @linkClick}, ' TASKS'
-      React.DOM.hr {}
+    React.DOM.div {className: 'main-container'},
+      React.DOM.div {className: 'top-bar'},
+        React.DOM.h1 {}, AppState.currentUrl
+        React.DOM.a {href: '/pros', onClick: @linkClick}, 'PROS'
+        React.DOM.a {href: '/pros/some', onClick: @linkClick}, 'PROS/SOME'
+        React.DOM.a {href: '/tasks', onClick: @linkClick}, 'TASKS'
 
-      React.createElement page if page?
+      React.DOM.div {className: 'content-container'},
+        React.createElement page if page?
 
 
 React.render React.createElement(App), document.body
