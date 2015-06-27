@@ -23,10 +23,15 @@ ProjectPage = React.createClass
       newProject:
         name: event.target.value
   render: ->
-    R.div {},
-      R.input {type: 'text', onChange: @inputChange}
-      R.button {onClick: @onBtnClick}, 'ADD PROJECT'
-      R.ul {},
-        @state.projects.map (i) -> R.li({}, i)
+    @state.projects
+    R.div {className: 'project-page'},
+      R.div {className: 'left-panel'},
+        R.input {type: 'text', onChange: @inputChange}
+        R.button {onClick: @onBtnClick}, 'ADD PROJECT'
+        R.table {},
+          R.tbody {},
+            @state.projects.map (i,v) -> R.tr({}, [R.td({}, i.get('id')),R.td({}, i.get('name'))])
+      R.div {className: 'right-panel'}
+        R.h2 {}, 'DETAIL'
 
 module.exports = ProjectPage
