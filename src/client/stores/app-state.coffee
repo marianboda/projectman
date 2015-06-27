@@ -10,6 +10,9 @@ AppState = Reflux.createStore
     console.log 'init AppState+'
     @location = Url.parse(window.location.href, true)
 
+  getPathFragments: ->
+    location.pathname.substring(1).split('/')
+
   updateLocation: (url) ->
     @location = Url.parse(url, true)
     console.log('location updating: ', @location.href)
