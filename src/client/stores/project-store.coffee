@@ -11,14 +11,14 @@ store =
     @getProjects()
 
   getProjects: ->
-    Request.get 'api/projects'
+    Request.get '/api/projects'
     .end (err, res) =>
       console.log 'I\'m back', res
       @projects = I.fromJS JSON.parse(res.text)
       @trigger()
 
   addProject: (rec) ->
-    Request.post 'api/projects'
+    Request.post '/api/projects'
     .send(rec)
     .end (err, res) =>
       console.log 'saving project done', err, res
