@@ -12,4 +12,9 @@ apiRouter.post '/projects', (req, res, next) ->
   Sqlite.add 'projects', rec, (result) ->
     res.send result
 
+apiRouter.get '/projects/:id', (req, res, next) ->
+  console.log 'calling router > project > ' + req.params.id#, req.body
+  Sqlite.getRecord 'projects', req.params.id, (result) ->
+    res.send result
+
 module.exports = apiRouter

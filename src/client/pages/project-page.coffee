@@ -32,14 +32,17 @@ ProjectPage = React.createClass
 
   render: ->
     @state.projects
-    selectedProject = @getSelectedProjectId()
+    selectedProjectId = @getSelectedProjectId()
 
     detail = null
-    if selectedProject?
-      console.log 'hereee'
+    if selectedProjectId?
+      console.log 'hereee', ProjectStore.selectedProject.name
+      ProjectStore.getProject(selectedProjectId)
+
       detail = [
         R.h2 {}, 'DETAIL'
-        R.div {}, 'TOTO JE DETAIL NEJAKEHO PROJEKTU: ' + selectedProject
+        R.div {}, 'TOTO JE DETAIL NEJAKEHO PROJEKTU: ' + selectedProjectId
+        R.div {}, ProjectStore.selectedProject.get('name')
       ]
 
     R.div {className: 'project-page'},

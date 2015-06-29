@@ -5,6 +5,7 @@ Actions = require '../actions'
 
 store =
   projects: I.Set []
+  selectedProject: I.Map {}
 
   init: ->
     @listenTo Actions.createProject, @addProject
@@ -23,5 +24,11 @@ store =
     .end (err, res) =>
       console.log 'saving project done', err, res
       @getProjects()
+
+  getProject: (id) ->
+    Request.get "/api/projects/#{id}"
+    .end (err, res) =>
+      @selectedProject = I.fromJS JSON.parse(res.text)
+      @trigger()
 
 module.exports = Reflux.createStore store
