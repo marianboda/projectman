@@ -2,3 +2,5 @@ app/
 static/
 node_modules/
 db.sqlite
+__tests__/
+preprocessor.js
