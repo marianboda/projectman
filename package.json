@@ -4,9 +4,14 @@
   "description": "",
   "main": "src/server.coffee",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "webpack --config webpack.config.js --progress --profile --colors -d",
     "watch": "webpack --config webpack.config.js --progress --colors --watch -d"
+  },
+  "jest": {
+    "scriptPreprocessor": "preprocessor.js",
+    "testFileExtensions": ["coffee", "litcoffee", "coffee.md", "js"],
+    "moduleFileExtensions": ["coffee", "litcoffee", "coffee.md", "js"]
   },
   "repository": {
     "type": "git",

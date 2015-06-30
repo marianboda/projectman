@@ -10,12 +10,9 @@ class SQLite
 
   getRecord: (table, id, cb) ->
     console.log "SELECT * FROM #{table} WHERE id = #{id}"
-    @db.all "SELECT * FROM #{table} WHERE id = #{id}", (e, records) ->
-      console.log records
-      if records? and records.length > 0
-        cb(records[0])
-      else
-        cb(null)
+    @db.get "SELECT * FROM #{table} WHERE id = ?", id, (e, record) ->
+      console.log record
+      cb(record)
 
   add: (table, record, cb) ->
     keys = Object.keys record
@@ -27,5 +24,9 @@ class SQLite
     console.log "INSERT INTO #{table} (#{keysStr}) VALUES (#{valuesStr})"
     @db.run "INSERT INTO #{table} (#{keysStr}) VALUES (#{valuesStr})", cb
 
+  getTables: (cb) ->
+    @db.all "SELECT * FROM sqlite_master WHERE type='table'", (e, records) ->
+      console.log 'records', records
+      cb(records)
 
 module.exports = new SQLite()

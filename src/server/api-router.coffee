@@ -17,4 +17,10 @@ apiRouter.get '/projects/:id', (req, res, next) ->
   Sqlite.getRecord 'projects', req.params.id, (result) ->
     res.send result
 
+apiRouter.get '/tables', (req, res, next) ->
+  console.log 'calling router > tables > '
+  Sqlite.getTables (result) ->
+    console.log result
+    res.send result
+
 module.exports = apiRouter
