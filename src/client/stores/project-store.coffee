@@ -26,8 +26,9 @@ store =
       @getProjects()
 
   getProject: (id) ->
-    Request.get "/api/projects/#{id}"
-    .end (err, res) =>
+    return if parseInt(id) is parseInt(@selectedProject?.get('id'))
+    console.log 'selecting project: ' + id
+    Request.get("/api/projects/#{id}").end (err, res) =>
       @selectedProject = I.fromJS JSON.parse(res.text)
       @trigger()
 

@@ -13,6 +13,7 @@ ProjectPage = React.createClass
   getInitialState: ->
     projects: ProjectStore?.projects ? []
     newProject: name: ''
+    selectedProjectId: null
 
   componentDidMount: ->
     @listenTo ProjectStore, => @setState({projects: ProjectStore.projects})
@@ -36,7 +37,6 @@ ProjectPage = React.createClass
 
     detail = null
     if selectedProjectId?
-      console.log 'hereee', ProjectStore.selectedProject.name
       ProjectStore.getProject(selectedProjectId)
 
       detail = [

@@ -1,6 +1,7 @@
 request = require 'superagent'
 React = require 'react'
 Reflux = require 'reflux'
+
 ProjectPage = require './pages/project-page'
 TaskPage = require './pages/task-page'
 DbPage = require './pages/db-page'
@@ -19,9 +20,9 @@ App = React.createClass
 
   componentDidMount: ->
     @listenTo AppState, => @setState {}
+
   render: ->
     path = AppState.location.pathname
-
     page = null
 
     if path.match(/^\/pros/i)?
@@ -41,6 +42,5 @@ App = React.createClass
 
       React.DOM.div {className: 'content-container'},
         React.createElement page if page?
-
 
 React.render React.createElement(App), document.body
