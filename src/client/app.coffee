@@ -44,7 +44,12 @@ App = React.createClass
         React.DOM.a {href: '/tasks', onClick: @linkClick}, 'TASKS'
         React.DOM.a {href: '/db', onClick: @linkClick}, 'DB'
         React.DOM.a {href: '/user', onClick: @linkClick}, 'U-S-E-R'
-        React.DOM.a {href: '/auth/google'}, 'GOOGLE LOGIN'
+        if (AppState.user?.id?) \
+          then React.DOM.span {},
+            React.DOM.span {}, AppState.user.displayName
+            React.DOM.a {href: '/logout'}, 'LOGOUT'
+          else React.DOM.a {href: '/auth/google'}, 'GOOGLE LOGIN'
+
 
       React.DOM.div {className: 'content-container'},
         React.createElement page if page?

@@ -31,7 +31,7 @@ passport.deserializeUser (obj, done) -> done null, obj
 googleAuthVerify = (accessToken, refreshToken, profile, done) ->
   console.log 'verifying somethin'
   setTimeout (err) ->
-    done null, {user:'aa'}
+    done null, profile
   , 0
   setTimeout (err) ->
     io.emit('event', { user: profile })

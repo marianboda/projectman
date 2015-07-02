@@ -1,9 +1,12 @@
 apiRouter = require('express').Router()
 Sqlite = require './services/sqlite-service'
 
+apiRouter.get '/app-state', (req, res, next) ->
+  res.send req.session.passport?.user ? {}
+
 apiRouter.get '/projects', (req, res, next) ->
   req.session.apiCalls ?= 0
-  console.log 'calling router > projects' + req.session.apiCalls
+  # console.log 'calling router > projects ' + JSON.stringify(req.session)
   req.session.apiCalls++
   Sqlite.getRecords (recs) ->
     res.send recs
