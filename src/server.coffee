@@ -1,8 +1,9 @@
 express = require 'express'
-everyauth = require 'everyauth'
 bodyParser = require 'body-parser'
 session = require 'express-session'
 nodeUuid = require 'node-uuid'
+passport = require 'passport'
+GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 
 app = express()
 router = express.Router()
@@ -10,31 +11,45 @@ port = process.env.PORT || 3002
 apiRouter = require './server/api-router'
 config = require './server/config'
 
-everyauth.google
-.appId config.GOOGLE_CLIENT_ID
-.appSecret config.GOOGLE_SECRET
-.scope 'profile'
-.handleAuthCallbackError (req, res) -> console.log 'some err'
-.getSession (req) ->
-  req.session
-.findOrCreateUser (session, accessToken, accessTokenExtra, googleUserMetadata) ->
-  console.log session, accessToken, accessTokenExtra, googleUserMetadata
-  session.user = googleUserMetadata
-  {user: ':)))'}
-.redirectPath '/sranda?pp'
-.entryPath '/goog'
-.callbackPath('/')
+passport.serializeUser (user, done) -> done null, user
+passport.deserializeUser (obj, done) -> done null, obj
+
+googleAuthVerify = (accessToken, refreshToken, profile, done) ->
+  setTimeout (err) ->
+    done null, {user:'aa'}
+  # User.findOrCreate {googleId: profile.id}, (err, user) ->
+  #   console.log 'User found/created'
+  #   done err, user
+
+passport.use new GoogleStrategy(config.GOOGLE_AUTH, googleAuthVerify)
+
 
 app.use bodyParser.json()
 
 router.get '/*', (req, res) ->
   res.sendFile(__dirname + '/client/index.html')
 
-app.use everyauth.middleware()
 app.use session
   genid: (req) -> nodeUuid.v4()
-  secret: 'priepustka'
+  secret: 'lahsbeioalijsrel'
+
 app.use '/static', express.static(__dirname + '/../static')
+app.use passport.initialize()
+app.use passport.session()
+
+app.get '/auth/google', passport.authenticate('google', {scope: 'profile'})
+app.get config.GOOGLE_AUTH.callbackURL, passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) ->
+    res.redirect '/'
+
+app.get '/logout', (req, res) ->
+  req.logout()
+  res.redirect '/'
+
+app.use '/user', (req, res) ->
+  console.log req.user
+  res.send req.user
+
 # app.use '/favicon.ico', express.static(__dirname + '/../static/favicon.ico')
 app.use '/api', apiRouter
 app.use '/', router

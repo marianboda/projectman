@@ -42,6 +42,8 @@
     "lodash": "^3.10.0",
     "node-libs-browser": "^0.5.2",
     "node-uuid": "^1.4.3",
+    "passport": "^0.2.2",
+    "passport-google-oauth": "^0.2.0",
     "pm2": "^0.14.3",
     "react": "^0.13.3",
     "reflux": "^0.2.8",

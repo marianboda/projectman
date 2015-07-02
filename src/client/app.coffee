@@ -39,6 +39,7 @@ App = React.createClass
         React.DOM.a {href: '/pros/some', onClick: @linkClick}, 'PROS/SOME'
         React.DOM.a {href: '/tasks', onClick: @linkClick}, 'TASKS'
         React.DOM.a {href: '/db', onClick: @linkClick}, 'DB'
+        React.DOM.a {href: '/auth/google'}, 'GOOGLE LOGIN'
 
       React.DOM.div {className: 'content-container'},
         React.createElement page if page?
