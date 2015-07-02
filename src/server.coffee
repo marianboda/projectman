@@ -5,18 +5,39 @@ nodeUuid = require 'node-uuid'
 passport = require 'passport'
 GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 
+
 app = express()
 router = express.Router()
 port = process.env.PORT || 3002
 apiRouter = require './server/api-router'
 config = require './server/config'
 
+server = app.listen port, ->
+  console.log 'App listening at %s : %s',
+  server.address().address, server.address().port
+
+io = require('socket.io')(server)
+
+io.on 'connection', (socket)->
+  console.log 'a user connected'
+  setTimeout ->
+    console.log 'trying hard'
+    io.emit('event', 'hehehe ;)')
+  , 1000
+
 passport.serializeUser (user, done) -> done null, user
 passport.deserializeUser (obj, done) -> done null, obj
 
 googleAuthVerify = (accessToken, refreshToken, profile, done) ->
+  console.log 'verifying somethin'
   setTimeout (err) ->
     done null, {user:'aa'}
+  , 0
+  setTimeout (err) ->
+    io.emit('event', { user: profile })
+    console.log 'emited?'
+  , 0
+
   # User.findOrCreate {googleId: profile.id}, (err, user) ->
   #   console.log 'User found/created'
   #   done err, user
@@ -53,7 +74,3 @@ app.use '/user', (req, res) ->
 # app.use '/favicon.ico', express.static(__dirname + '/../static/favicon.ico')
 app.use '/api', apiRouter
 app.use '/', router
-
-server = app.listen port, ->
-  console.log 'App listening at %s : %s',
-  server.address().address, server.address().port

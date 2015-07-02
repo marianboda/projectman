@@ -1,6 +1,10 @@
 request = require 'superagent'
 React = require 'react'
 Reflux = require 'reflux'
+io = require('socket.io-client')('http://localhost:3002')
+io.on 'connect', () -> console.log ':)'
+io.on 'event', (data) -> console.log ':|', data
+io.on 'disconnect', () -> console.log ':('
 
 ProjectPage = require './pages/project-page'
 TaskPage = require './pages/task-page'
@@ -39,6 +43,7 @@ App = React.createClass
         React.DOM.a {href: '/pros/some', onClick: @linkClick}, 'PROS/SOME'
         React.DOM.a {href: '/tasks', onClick: @linkClick}, 'TASKS'
         React.DOM.a {href: '/db', onClick: @linkClick}, 'DB'
+        React.DOM.a {href: '/user', onClick: @linkClick}, 'U-S-E-R'
         React.DOM.a {href: '/auth/google'}, 'GOOGLE LOGIN'
 
       React.DOM.div {className: 'content-container'},
