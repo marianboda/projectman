@@ -1,10 +1,6 @@
 request = require 'superagent'
 React = require 'react'
 Reflux = require 'reflux'
-io = require('socket.io-client')('http://localhost:3002')
-io.on 'connect', () -> console.log ':)'
-io.on 'event', (data) -> console.log ':|', data
-io.on 'disconnect', () -> console.log ':('
 
 ProjectPage = require './pages/project-page'
 TaskPage = require './pages/task-page'

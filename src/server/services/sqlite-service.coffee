@@ -1,5 +1,6 @@
 sql = require 'sqlite3'
 _ = require 'lodash'
+isjs = require 'is_js'
 
 class SQLite
   db: new sql.Database('./db.sqlite')
@@ -9,9 +10,18 @@ class SQLite
       cb(records)
 
   getRecord: (table, id, cb) ->
-    console.log "SELECT * FROM #{table} WHERE id = #{id}"
-    @db.get "SELECT * FROM #{table} WHERE id = ?", id, (e, record) ->
-      console.log record
+    if isjs.number(id)
+      console.log "SELECT * FROM #{table} WHERE id = #{id}"
+      @db.get "SELECT * FROM #{table} WHERE id = ?", id, (e, record) ->
+        console.log record
+        cb(record)
+      return
+
+    constraints = []; constraints.push "#{k}=\"#{v}\"" for k,v of id
+
+    q = "SELECT * FROM #{table} WHERE " + constraints.join(',')
+    console.log q
+    @db.get q, (e, record) ->
       cb(record)
 
   add: (table, record, cb) ->

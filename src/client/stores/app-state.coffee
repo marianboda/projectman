@@ -15,7 +15,6 @@ AppState = Reflux.createStore
 
   getInitialState: ->
     Request.get("/api/app-state").end (err, res) =>
-      console.log 'fun and games'
       @user = JSON.parse(res.text)
       console.log 'USER',@user
       @trigger()

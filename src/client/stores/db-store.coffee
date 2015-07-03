@@ -13,7 +13,7 @@ store =
   getTables: ->
     Request.get '/api/tables'
     .end (err, res) =>
-      @projects = I.fromJS JSON.parse(res.text)
+      @tables = I.fromJS JSON.parse(res.text)
       @trigger()
 
 module.exports = Reflux.createStore store
