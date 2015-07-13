@@ -51,11 +51,8 @@ app.use '/user', (req, res) ->
   res.send req.user
 
 # app.use '/favicon.ico', express.static(__dirname + '/../static/favicon.ico')
-app.get '/*', (req, res, next) ->
-  if req.user?
-    console.log 'user ' + req.user
-  else
-    console.log 'NOT LOGGED IN'
-  next()
+# app.get '/*', (req, res, next) ->
+#   console.log if req.user? then "user #{req.user}" else 'NOT LOGGED IN'
+#   next()
 app.use '/api', apiRouter
 app.use '/', router

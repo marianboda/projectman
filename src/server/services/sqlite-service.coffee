@@ -4,8 +4,8 @@ isjs = require 'is_js'
 
 class SQLite
   db: new sql.Database('./db.sqlite')
-  getRecords: (cb) ->
-    @db.all 'SELECT * FROM projects', (e, records) ->
+  getRecords: (table, rules, cb) ->
+    @db.all "SELECT * FROM #{table}", (e, records) ->
       console.log 'records'
       cb(records)
 
