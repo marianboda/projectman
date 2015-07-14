@@ -18,10 +18,11 @@ TaskPage = React.createClass
   render: ->
     R.div {className: 'task-page'},
       R.h1 {}, 'Tasks'
-      @state.tasks.map (i,v) ->
-        R.tr {},
-          R.td {}, R.input {type: 'checkbox'}
-          R.td {},
-            A {href: "/tasks/#{i.get('id')}"}, i.get('name')
+      R.table {},
+        @state.tasks.map (i,v) ->
+          R.tr {},
+            R.td {}, R.input {type: 'checkbox'}
+            R.td {},
+              A {href: "/tasks/#{i.get('id')}"}, i.get('name')
 
 module.exports = TaskPage
