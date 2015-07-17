@@ -5,11 +5,12 @@ Actions = require '../actions'
 
 store =
   projects: I.Set []
-  tasks: I.Set []
+  tasks: I.List []
   selectedProject: I.Map {}
 
   init: ->
     @listenTo Actions.createProject, @addProject
+    @listenTo Actions.switchTaskState, @switchTaskState
     @getProjects()
     @getTasks()
 
@@ -40,5 +41,9 @@ store =
       @tasks = I.fromJS JSON.parse(res.text)
       @trigger()
 
+  switchTaskState: (id) ->
+    taskIndex = @tasks.findEntry((i) -> i.get('id') is id)?[0]
+    @tasks = @tasks.updateIn([taskIndex, 'status_id'], (i) -> if i is 2 then 1 else 2)
+    @trigger()
 
 module.exports = Reflux.createStore store

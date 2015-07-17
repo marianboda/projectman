@@ -12,16 +12,22 @@ TaskPage = React.createClass
 
   getInitialState: ->
     tasks: ProjectStore?.tasks ? []
+    projects: ProjectStore?.projects ? []
   componentDidMount: ->
-    @listenTo ProjectStore, => @setState({tasks: ProjectStore.tasks})
+    @listenTo ProjectStore, => @setState({tasks: ProjectStore.tasks, projects: ProjectStore.projects})
+
+  taskChecked: (i) -> Actions.switchTaskState(i)
 
   render: ->
     R.div {className: 'task-page'},
       R.h1 {}, 'Tasks'
+      R.div {},
+        R.select {}, @state.projects.map (i,v) -> R.option {value: i.get('id')}, i.get('name')
       R.table {},
-        @state.tasks.map (i,v) ->
+        @state.tasks.map (i,v) =>
           R.tr {},
-            R.td {}, R.input {type: 'checkbox'}
+            R.td {},
+              R.input {type: 'checkbox', checked: i.get('status_id') isnt 1, onChange: => @taskChecked(i.get('id'))}
             R.td {},
               A {href: "/tasks/#{i.get('id')}"}, i.get('name')
 
