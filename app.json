@@ -1,0 +1,11 @@
+{
+  "apps" : [{
+    "name"        : "projectman",
+    "script"      : "src/server.coffee",
+    "watch"       : true,
+    "merge_logs"  : true,
+    "env": {
+        "NODE_ENV": "development"
+    }
+  }]
+}
