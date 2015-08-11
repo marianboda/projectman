@@ -20,11 +20,10 @@ ProjectPage = React.createClass
 
   onBtnClick: ->
     Actions.createProject(@state.newProject)
+    @setState newProject: {name: ''}
 
   inputChange: ->
-    @setState
-      newProject:
-        name: event.target.value
+    @setState newProject: name: event.target.value
 
   getSelectedProjectId: ->
     frags = AppState.getPathFragments()
@@ -40,14 +39,13 @@ ProjectPage = React.createClass
       ProjectStore.getProject(selectedProjectId)
 
       detail = [
-        R.h2 {}, 'DETAIL'
-        R.div {}, 'TOTO JE DETAIL NEJAKEHO PROJEKTU: ' + selectedProjectId
-        R.div {}, ProjectStore.selectedProject.get('name')
+        R.h2 {}, ProjectStore.selectedProject.get('name')
+        R.div {}, 'ID: ' + selectedProjectId
       ]
 
     R.div {className: 'project-page'},
       R.div {className: 'left-panel'},
-        R.input {type: 'text', onChange: @inputChange}
+        R.input {type: 'text', onChange: @inputChange, value: @state.newProject.name}
         R.button {onClick: @onBtnClick}, 'ADD PROJECT'
         R.table {},
           R.tbody {},

@@ -14,7 +14,7 @@ apiRouter.post '/projects', (req, res, next) ->
     res.send result
 
 apiRouter.get '/projects/:id', (req, res, next) ->
-  Sqlite.getRecord 'projects', req.params.id, (result) ->
+  Sqlite.getRecord 'projects', parseInt(req.params.id), (result) ->
     res.send result
 
 apiRouter.get '/tasks', (req, res, next) ->
