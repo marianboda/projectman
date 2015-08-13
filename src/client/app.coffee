@@ -52,7 +52,6 @@ App = React.createClass
 
     R.div {className: 'main-container'},
       R.div {className: 'top-bar'},
-        R.h1 {}, AppState.currentUrl
         R.span {}, menuItems
 
       R.div {className: 'content-container'},

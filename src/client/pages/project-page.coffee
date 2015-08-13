@@ -43,8 +43,8 @@ ProjectPage = React.createClass
         R.div {}, 'ID: ' + selectedProjectId
       ]
 
-    R.div {className: 'project-page'},
-      R.div {className: 'left-panel'},
+    R.div {className: 'project-page page'},
+      R.div {className: 'general-content'},
         R.input {type: 'text', onChange: @inputChange, value: @state.newProject.name}
         R.button {onClick: @onBtnClick}, 'ADD PROJECT'
         R.table {},
@@ -54,7 +54,7 @@ ProjectPage = React.createClass
                 R.td {}, i.get('id')
                 R.td {},
                   A {href: "/pros/#{i.get('id')}"}, i.get('name')
-      R.div {className: 'right-panel'},
+      R.div {className: 'detail-content'},
         detail
 
 
