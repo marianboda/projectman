@@ -2,6 +2,8 @@ request = require 'superagent'
 React = require 'react'
 Reflux = require 'reflux'
 
+R = React.DOM
+
 ProjectPage = require './pages/project-page'
 TaskPage = require './pages/task-page'
 DbPage = require './pages/db-page'
@@ -32,22 +34,28 @@ App = React.createClass
     if path.match(/^\/db/i)?
       page = DbPage
 
-    React.DOM.div {className: 'main-container'},
-      React.DOM.div {className: 'top-bar'},
-        React.DOM.h1 {}, AppState.currentUrl
-        React.DOM.a {href: '/pros', onClick: @linkClick}, 'PROS'
-        React.DOM.a {href: '/pros/some', onClick: @linkClick}, 'PROS/SOME'
-        React.DOM.a {href: '/tasks', onClick: @linkClick}, 'TASKS'
-        React.DOM.a {href: '/db', onClick: @linkClick}, 'DB'
-        React.DOM.a {href: '/user', onClick: @linkClick}, 'U-S-E-R'
-        if (AppState.user?.id?) \
-          then React.DOM.span {},
-            React.DOM.span {}, AppState.user.displayName
-            React.DOM.a {href: '/logout'}, 'LOGOUT'
-          else React.DOM.a {href: '/auth/google'}, 'GOOGLE LOGIN'
+    menuItems = []
+    if (AppState.user?.id?)
+      menuItems = menuItems.concat [
+        R.a {href: '/pros', onClick: @linkClick}, 'PROS'
+        R.a {href: '/pros/some', onClick: @linkClick}, 'PROS/SOME'
+        R.a {href: '/tasks', onClick: @linkClick}, 'TASKS'
+        R.a {href: '/db', onClick: @linkClick}, 'DB'
+        R.a {href: '/user', onClick: @linkClick}, 'U-S-E-R'
+        R.span {}, AppState.user.displayName
+        R.a {href: '/logout'}, 'LOGOUT'
+      ]
+    else
+      menuItems = menuItems.concat [
+        R.a {href: '/auth/google'}, 'GOOGLE LOGIN'
+      ]
 
+    R.div {className: 'main-container'},
+      R.div {className: 'top-bar'},
+        R.h1 {}, AppState.currentUrl
+        R.span {}, menuItems
 
-      React.DOM.div {className: 'content-container'},
+      R.div {className: 'content-container'},
         React.createElement page if page?
 
 React.render React.createElement(App), document.body
