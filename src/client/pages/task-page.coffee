@@ -5,6 +5,7 @@ ProjectStore = require '../stores/project-store'
 AppState = require '../stores/app-state'
 Actions = require '../actions'
 A = React.createFactory(require '../components/anchor')
+TaskForm = require './task-form'
 
 TaskPage = React.createClass
   displayName: 'task-page'
@@ -33,6 +34,7 @@ TaskPage = React.createClass
                 A {href: "/tasks/#{i.get('id')}"}, i.get('name')
       R.div {className: 'detail-content'},
         if AppState.getPathFragments()[1] is 'new' then R.span {}, 'NEWWW' else '-'
+        TaskForm {id: 0, onSave: (t) -> ProjectStore.addTask(t)}
 
 
 module.exports = TaskPage

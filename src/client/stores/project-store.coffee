@@ -41,6 +41,13 @@ store =
       @tasks = I.fromJS JSON.parse(res.text)
       @trigger()
 
+  addTask: (rec) ->
+    Request.post '/api/tasks'
+    .send(rec)
+    .end (err, res) =>
+      console.log 'saving task done', err, res
+      @getTasks()
+
   switchTaskState: (id) ->
     taskIndex = @tasks.findEntry((i) -> i.get('id') is id)?[0]
     @tasks = @tasks.updateIn([taskIndex, 'status_id'], (i) -> if i is 2 then 1 else 2)
