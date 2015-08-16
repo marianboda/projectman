@@ -41,6 +41,12 @@ store =
       @tasks = I.fromJS JSON.parse(res.text)
       @trigger()
 
+  getTaskById: (id) ->
+    filtered = @tasks.filter (i) -> i.get('id') is id
+    if filtered.count() > 0
+      return filtered.toJS()[0]
+    {}
+
   addTask: (rec) ->
     Request.post '/api/tasks'
     .send(rec)

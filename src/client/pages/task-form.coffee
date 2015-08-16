@@ -13,14 +13,15 @@ TaskForm = React.createClass
     id: 0
 
   getInitialState: ->
-    projects: ProjectStore?.projects ? [{id: 0, name: '-'}]
+    defProjects = [{id: 0, name: '-'}]
+    projects: ProjectStore?.projects ? defProjects
     task: {}
   componentDidMount: ->
     @listenTo ProjectStore, => @setState({projects: ProjectStore.projects})
 
   componentWillReceiveProps: (nextProps) ->
     if nextProps.id? and nextProps.id isnt @props.id
-      @setState {task: {id: nextProps.id}}
+      @updateState {task: {$set: ProjectStore.getTaskById(nextProps.id)}}
 
   onSaveClick: (e) ->
     @props.onSave?(@state.task)
@@ -39,7 +40,9 @@ TaskForm = React.createClass
             R.td {}, @state.task?.id
           R.tr {},
             R.td {}, R.label({}, 'PROJECT')
-            R.td {}, R.select({onChange: @onProjectChange}, @state.projects.map (i,v) -> R.option {value: i.get('id')}, i.get('name'))
+            R.td {}, R.select({onChange: @onProjectChange},
+              [R.option {value: 0}, '-'].concat
+                @state.projects.map (i,v) -> R.option {value: i.get('id')}, i.get('name'))
           R.tr {},
             R.td {}, R.label({}, 'NAME')
             R.td {}, R.input({type: 'text', onChange: @onNameChange, value: @state.task?.name})
