@@ -34,14 +34,15 @@ App = React.createClass
     if path.match(/^\/db/i)?
       page = DbPage
 
-    menuItems = []
+    menuItems = [
+      R.a {href: '/pros', onClick: @linkClick}, 'PROS'
+      R.a {href: '/pros/some', onClick: @linkClick}, 'PROS/SOME'
+      R.a {href: '/tasks', onClick: @linkClick}, 'TASKS'
+      R.a {href: '/db', onClick: @linkClick}, 'DB'
+      R.a {href: '/user', onClick: @linkClick}, 'U-S-E-R'
+    ]
     if (AppState.user?.id?)
       menuItems = menuItems.concat [
-        R.a {href: '/pros', onClick: @linkClick}, 'PROS'
-        R.a {href: '/pros/some', onClick: @linkClick}, 'PROS/SOME'
-        R.a {href: '/tasks', onClick: @linkClick}, 'TASKS'
-        R.a {href: '/db', onClick: @linkClick}, 'DB'
-        R.a {href: '/user', onClick: @linkClick}, 'U-S-E-R'
         R.span {}, AppState.user.displayName
         R.a {href: '/logout'}, 'LOGOUT'
       ]
