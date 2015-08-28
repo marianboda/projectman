@@ -35,7 +35,6 @@ TaskPage = React.createClass
               R.td {},
                 A {href: "/tasks/#{i.get('id')}"}, i.get('name')
       R.div {className: 'detail-content'},
-        if AppState.getPathFragments()[1] is 'new' then R.span {}, 'NEWWW' else '-'
         TaskForm {id: parseInt(AppState.getPathFragments()[1]), onSave: (t) -> ProjectStore.addTask(t)}
 
 
